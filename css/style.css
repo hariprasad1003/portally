@@ -3641,7 +3641,7 @@ table.dataTable {
 }
 
 /* line 448, H:/admin_project/finance/scss/_sidebar.scss */
-.admin_profile_Wrap .metismenu .has-arrow::after {
+.admin_profile_Wrap .metismenu .::after {
   top: 38%;
 }
 
@@ -3668,7 +3668,7 @@ body::-webkit-scrollbar {
 
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
   /* line 478, H:/admin_project/finance/scss/_sidebar.scss */
-  .metismenu .has-arrow::after {
+  .metismenu .::after {
     right: 25px;
   }
 }
