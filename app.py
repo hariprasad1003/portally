@@ -222,7 +222,7 @@ def post_event_page():
     venue_data = {
         "v_a_id"        : v_a_id,
         "venue_id"      : venue_id["venue_id"],
-        "event_date"    : request.form['date'],
+        "event_date"    : form_date,
         "event_id"      : int(event_id),
         "starting_time" : float(request.form['starting_time']),
         "ending_time"   : float(request.form['ending_time'])
@@ -231,7 +231,9 @@ def post_event_page():
 
     for data in db_venue_avail.find({"venue_id":venue_id["venue_id"]}):
 
+        print("form date", form_date)
         event_data = data["event_date"]
+        print("event date", event_data)
         # form_date = string_date(request.form['date'])
 
         if( event_data == form_date):
@@ -246,8 +248,9 @@ def post_event_page():
 
             print(db_start,db_end, form_start, form_end )
 
-            if(db_start >= form_start and db_end <= form_end ):
+            if(db_start >= form_start or db_end <= form_end ):
                 message = "Venue is already booked in the given time"
+                print("message", message)
                 flag=1
        
     if(flag==0):
@@ -294,19 +297,26 @@ def get_venues():
 def get_venue_details(venue_id):
 
     data = db_venue_avail.find({"venue_id": int(venue_id)})
-    # print(dumps(data))
+
+    data_list = []
+
+    for itr in data:
+
+        value = {}
+
+        value = itr 
+
+        data_1 = db_events.find_one({"event_id": itr["event_id"]}) 
+
+        value["event_name"] = data_1["event_name"]
+
+        data_list.append(value)
+
+    print(data_list)   
+
+    return render_template("single_venue_details.html", result=data_list)
 
 
-
-    # for itr in data:
-    #     data_1 = db_events.find_one({"event_id":itr["event_id"]}) 
-    #     itr["event_name"] = data_1["event_name"]
-        # print(itr)
-
-    # print(dumps(data))
-    return render_template("single_venue_details.html", result=data)
-
-# /venue/
 
 if __name__ == "__main__":
     # print(app.config['MONGO_URI'])
