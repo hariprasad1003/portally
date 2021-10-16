@@ -37,5 +37,5 @@ def login():
     return render_template("login.html")
 
 if __name__ == "__main__":
-    print(app.config['MONGO_URI'])
+    # print(app.config['MONGO_URI'])
     app.run( debug = True,host="0.0.0.0",port = PORT)
