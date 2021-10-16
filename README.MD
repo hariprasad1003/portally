@@ -1,5 +1,13 @@
 # Portally - One place Virtual Support for Students 
 
+## Team Name - S4 Bucket
+
+## Team Members
+
+- Divya P
+- Gokul AC
+- Hari Prasad G
+
 ## Problems Solved:
 
 - To find directions within the campus.
