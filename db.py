@@ -79,15 +79,20 @@ def insert_events_students():
     d1 = today.strftime("%d/%m/%Y")
 
     data = {
+
         "event_id"          : 1,
         "date"              : d1,
         "event_name"        : "W3H Club coding event",
-        "event_venue"       : "Placement block Basil",
+        "event_venue"       : "Placement Block - Basil",
         "co-ordinators"     : "Divya, Hari Prasad, Varsha",
         "form_link"         : "https://forms.gle/9E4ofu5rqPe77cus6",
         "contact_details"   : "9791108129",
         "department"        : "CSE",
-        "year_of_study"     : "III"
+        "year_of_study"     : "III",
+        "mode"              : "offline",
+        "starting_time"     : 3,
+        "ending_time"       : 4,
+       
     }
 
     db_events.insert_one(data) 
@@ -105,9 +110,16 @@ def insert_venue():
 
 def venue_avail():
 
+    today = date.today()
+    d1 = today.strftime("%d/%m/%Y")
+
     data = {
-        "v_a_id"    : 1,
-        "venue_id"  : 1,
+        "v_a_id"        : 1,
+        "venue_id"      : 1,
+        "event_date"    : d1,
+        "event_id"      : 1,
+        "starting_time" : 3,
+        "ending_time"   : 4
        
     }
 
@@ -123,7 +135,8 @@ if __name__ == "__main__":
     # app.run( debug = True,host="0.0.0.0",port = PORT)
     # insert_login_details()
 
-    # insert_events_students()
+    insert_events_students()
     # insert_venue()
+    venue_avail()
 
-    print(get_venue_id())
+    # print(get_venue_id())
