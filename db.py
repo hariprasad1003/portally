@@ -157,7 +157,7 @@ def get_admin_details(emp_id):
 
         # print(admin_details)
 
-    return result, admin_details["email_id"]
+    return result, admin_details["email_id"], admin_details["user_name"]
 
 def get_student_details(roll_number):
 
@@ -169,23 +169,23 @@ def get_student_details(roll_number):
 
         result = True
 
-    return result, student_details["email_id"]
+    return result, student_details["email_id"], student_details["user_name"]
 
-def add_admin_email(emp_id, load):
+def add_admin_email(emp_id, load, username):
 
     # print(load["identifier"])
 
-    response = db_admin.update({'emp_id': int(emp_id)},  {'$set': {"email_id": load["identifier"]}}) 
+    response = db_admin.update({'emp_id': int(emp_id)},  {'$set': {"email_id": load["identifier"], "user_name" : username}}) 
 
     # print(response)
 
     pass
 
-def add_student_email(roll_number, load):
+def add_student_email(roll_number, load, username):
 
     # print(load["identifier"])
 
-    response = db_student.update({'roll_number': int(roll_number)},  {'$set': {"email_id": load["identifier"]}}) 
+    response = db_student.update({'roll_number': int(roll_number)},  {'$set': {"email_id": load["identifier"], "user_name" : username}}) 
 
     # print(response)
 

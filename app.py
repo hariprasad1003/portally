@@ -56,28 +56,31 @@ def get_login_student():
 def post_login_admin():
 
     emp_id = request.form['emp_id']
+    user_name = request.form['user_name']
 
     # print(emp_id)
 
-    return redirect(url_for('get_login_admin_sawo', emp_id=emp_id))
+    return redirect(url_for('get_login_admin_sawo', emp_id=emp_id, user_name=user_name))
 
 @app.route("/login/student", methods=["POST"])
 def post_login_student():
 
     roll_number = request.form['roll_number']
+    user_name = request.form['user_name']
 
     # print(roll_number)
 
-    return redirect(url_for('get_login_student_sawo', roll_number=roll_number))
+    return redirect(url_for('get_login_student_sawo', roll_number=roll_number, user_name=user_name))
 
 @app.route("/login/admin/sawo", methods=["GET"])
 def get_login_admin_sawo():
 
     emp_id = request.args['emp_id']
-    # print(emp_id)
+    user_name = request.args['user_name']
+    # print(emp_id, user_name)
 
-    result, email_id = db.get_admin_details(emp_id)
-    print(result, email_id)
+    result, email_id, username = db.get_admin_details(emp_id)
+    # print(result, email_id, username)
 
     setLoaded()
     setPayload(load if loaded < 2 else '')
@@ -93,9 +96,9 @@ def get_login_admin_sawo():
 
         # print(load)
 
-        if(email_id is None):
+        if(email_id is None and username is None):
 
-            db.add_admin_email(emp_id, load)  
+            db.add_admin_email(emp_id, load, user_name)  
 
             return redirect(url_for('get_dashboard'))
 
@@ -111,11 +114,11 @@ def get_login_admin_sawo():
 def get_login_student_sawo():
 
     roll_number = request.args['roll_number']
+    user_name = request.args['user_name']
+    # print(roll_number, user_name)
 
-    # print(roll_number)
-
-    result, email_id = db.get_student_details(roll_number)
-    print(result, email_id)
+    result, email_id, username = db.get_student_details(roll_number)
+    # print(result, email_id, username)
 
     setLoaded()
     setPayload(load if loaded < 2 else '')
@@ -127,9 +130,9 @@ def get_login_student_sawo():
 
     if(load and result):
 
-        if(email_id is None):
+        if(email_id is None and username is None):
 
-            db.add_student_email(roll_number,load)        
+            db.add_student_email(roll_number,load, user_name)        
 
             return redirect(url_for('get_dashboard'))
 
