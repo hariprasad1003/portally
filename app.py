@@ -57,7 +57,7 @@ def post_login_admin():
 
     emp_id = request.form['emp_id']
 
-    print(emp_id)
+    # print(emp_id)
 
     return redirect(url_for('get_login_admin_sawo', emp_id=emp_id))
 
@@ -66,7 +66,7 @@ def post_login_student():
 
     roll_number = request.form['roll_number']
 
-    print(roll_number)
+    # print(roll_number)
 
     return redirect(url_for('get_login_student_sawo', roll_number=roll_number))
 
@@ -74,11 +74,10 @@ def post_login_student():
 def get_login_admin_sawo():
 
     emp_id = request.args['emp_id']
-
     # print(emp_id)
 
     result = db.get_admin_details(emp_id)
-    print(result)
+    # print(result)
 
     setLoaded()
     setPayload(load if loaded < 2 else '')
@@ -88,7 +87,13 @@ def get_login_admin_sawo():
         "identifier": "email"
     }
 
+    # print(load)
+
     if(load):
+
+        # print(load)
+
+        db.add_admin_email(emp_id, load)  
 
         return redirect(url_for('get_dashboard'))
 
@@ -103,6 +108,9 @@ def get_login_student_sawo():
 
     # print(roll_number)
 
+    result = db.get_student_details(roll_number)
+    # print(result)
+
     setLoaded()
     setPayload(load if loaded < 2 else '')
     sawo = {
@@ -111,7 +119,9 @@ def get_login_student_sawo():
         "identifier": "email"
     }
 
-    if(load):
+    if(load and result):
+
+        db.add_student_email(roll_number,load)        
 
         return redirect(url_for('get_dashboard'))
 
@@ -119,20 +129,9 @@ def get_login_student_sawo():
 
         return render_template("sawo_login.html", sawo=sawo, load=load)
 
-@app.route("/login/admin/sawo", methods=["POST"])
-def post_login_admin_sawo():
-    payload = json.loads(request.data)["payload"]
-    setLoaded(True)
-    setPayload(payload)
-    status = 200 if(verifyToken(payload)) else 404
+@app.route("/login", methods=["POST"])
+def login_sawo():
 
-    # print(status)
-
-    return {"status": status}
-
-
-@app.route("/login/student/sawo", methods=["POST"])
-def post_login_student_sawo():
     payload = json.loads(request.data)["payload"]
     setLoaded(True)
     setPayload(payload)
