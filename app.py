@@ -22,7 +22,8 @@ GOOGLE_API_KEY = config('GOOGLE_API_KEY')
 app.config['MONGO_URI'] = config('MONGO_URI') 
 mongo = PyMongo(app)
 db_admin = mongo.db.admin_login
-db_events = mongo.db.b_events
+db_b_events = mongo.db.b_events
+db_a_events = mongo.db.a_events
 db_venues = mongo.db.venues
 db_venue_avail = mongo.db.venue_avail
 
@@ -72,7 +73,7 @@ def post_login_admin():
 def post_login_student():
 
     roll_number = request.form['roll_number']
-    user_name = request.form['user_name']
+    user_name   = request.form['user_name']
 
     # print(roll_number)
 
@@ -91,7 +92,7 @@ def get_login_admin_sawo():
     setLoaded()
     setPayload(load if loaded < 2 else '')
     sawo = {
-        "auth_key": API_KEY,
+        "auth_key": SAWO_API_KEY,
         "to": "login",
         "identifier": "email"
     }
@@ -106,11 +107,11 @@ def get_login_admin_sawo():
 
             db.add_admin_email(emp_id, load, user_name)  
 
-            return redirect(url_for('get_dashboard'))
+            return redirect(url_for('get_dashboard_admin'))
 
         else:
 
-            return redirect(url_for('get_dashboard'))
+            return redirect(url_for('get_dashboard_admin'))
 
     else :
 
@@ -129,7 +130,7 @@ def get_login_student_sawo():
     setLoaded()
     setPayload(load if loaded < 2 else '')
     sawo = {
-        "auth_key": API_KEY,
+        "auth_key": SAWO_API_KEY,
         "to": "login",
         "identifier": "email"
     }
@@ -164,7 +165,7 @@ def login_sawo():
 
 def get_last_event_id():
 
-    last_event_id      = db_events.find().sort([('event_id', -1)]).limit(1)
+    last_event_id      = db_b_events.find().sort([('event_id', -1)]).limit(1)
 
     try:
         last_event_id = last_event_id[0]['event_id']
@@ -253,13 +254,13 @@ def post_event_page():
 
             print(db_start,db_end, form_start, form_end )
 
-            if(db_start >= form_start or db_end <= form_end ):
+            if((db_start >= form_start or db_end >= form_start) and (db_start >= form_end or db_end <= form_end)  ):
                 message = "Venue is already booked in the given time"
                 print("message", message)
                 flag=1
        
     if(flag==0):
-        db_events.insert_one(data)
+        db_b_events.insert_one(data)
         db_venue_avail.insert_one(venue_data)
         message = "Successfully sent for approval"
 
@@ -276,14 +277,37 @@ def string_date(str_date):
 
     return dt_object1
   
-# @app.route("/", methods=["GET"])
-# def get_dashboard():
-    # return render_template("index.html")
+@app.route("/dashboard-admin", methods=["GET"])
+def get_dashboard_admin():
+
+    data = db_a_events.find().sort("event_date", -1)
+
+
+    data_1 = db_b_events.find().sort("event_date", -1)
+
+
+    return render_template("admin_index.html", result = data, result_1 = data_1)
+
+
+@app.route("/approve/<event_id>", methods=["GET"])
+def get_dashboard_admin_approve(event_id):
+
+    print(event_id)
+
+    data = db_b_events.find_one({"event_id":int(event_id)})
+
+    print (data)
+
+    db_a_events.insert_one(data)
+    # db_b_events.delete_one({"event_id":int(event_id)})
+
+
+    return redirect(url_for('get_dashboard_admin'))
 
 @app.route("/dashboard", methods=["GET"])
 def get_dashboard():
 
-    data = db_events.find().sort("event_date", -1)
+    data = db_a_events.find().sort("event_date", -1)
     # print(dumps(data))
 
     return render_template("index.html", result = data)
@@ -311,7 +335,7 @@ def get_venue_details(venue_id):
 
         value = itr 
 
-        data_1 = db_events.find_one({"event_id": itr["event_id"]}) 
+        data_1 = db_b_events.find_one({"event_id": itr["event_id"]}) 
 
         value["event_name"] = data_1["event_name"]
 
