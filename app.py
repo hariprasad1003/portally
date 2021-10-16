@@ -67,7 +67,7 @@ def get_login():
 
     else :
 
-        return render_template("sawo_login.html")
+        return render_template("sawo_login.html", sawo=sawo, load=load)
 
 @app.route("/login", methods=["POST"])
 def post_login():
