@@ -176,115 +176,35 @@
             <table class="table lms_table_active">
                 <thead>
                     <tr>
-                        <th scope="col">title</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Teacher</th>
-                        <th scope="col">Lesson</th>
-                        <th scope="col">Enrolled</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Event Name</th>
+                        <th scope="col">Department</th>
+                        <th scope="col">Year</th>
+                        <th scope="col"> Venue</th>
+                        <th scope="col"> Contact Details</th>
+                        <th scope="col"> Date & Time</th>
+                        <th scope="col"> Registeration Link</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
+                    {% if result %}
+
+                    {% for data in result %}
+
                     <tr>
-                        <th scope="row"> <a href="#" class="question_content"> title here 1</a></th>
-                        <td>Category name</td>
-                        <td>Teacher James</td>
-                        <td>Lessons name</td>
-                        <td>16</td>
-                        <td>$25.00</td>
-                        <td><a href="#" class="status_btn">Active</a></td>
+                        <th scope="row"> <a href="#" class="question_content"> {{data.event_name}}</a></th>
+                        <td>{{data.department}}</td>
+                        <td>{{data.year_of_study}}</td>
+                        <td>{{data.event_venue}}</td>
+                        <td>{{data.contact_details}}</td>
+                        <td>{{data.date}}, {{data.starting_time}} - {{data.ending_time}}</td>
+                        <td><a href="{{data.form_link}}" target="_blank" class="status_btn">Register here</a></td>
                     </tr>
-                    <tr>
-                        <th scope="row"> <a href="#" class="question_content"> title here 1</a></th>
-                        <td>Category name</td>
-                        <td>Teacher James</td>
-                        <td>Lessons name</td>
-                        <td>16</td>
-                        <td>$25.00</td>
-                        <td><a href="#" class="status_btn">Active</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"> <a href="#" class="question_content"> title here 1</a></th>
-                        <td>Category name</td>
-                        <td>Teacher James</td>
-                        <td>Lessons name</td>
-                        <td>16</td>
-                        <td>$25.00</td>
-                        <td><a href="#" class="status_btn">Active</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"> <a href="#" class="question_content"> title here 1</a></th>
-                        <td>Category name</td>
-                        <td>Teacher James</td>
-                        <td>Lessons name</td>
-                        <td>16</td>
-                        <td>$25.00</td>
-                        <td><a href="#" class="status_btn">Active</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"> <a href="#" class="question_content"> title here 1</a></th>
-                        <td>Category name</td>
-                        <td>Teacher James</td>
-                        <td>Lessons name</td>
-                        <td>16</td>
-                        <td>$25.00</td>
-                        <td><a href="#" class="status_btn">Active</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"> <a href="#" class="question_content"> title here 1</a></th>
-                        <td>Category name</td>
-                        <td>Teacher James</td>
-                        <td>Lessons name</td>
-                        <td>16</td>
-                        <td>$25.00</td>
-                        <td><a href="#" class="status_btn">Active</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"> <a href="#" class="question_content"> title here 1</a></th>
-                        <td>Category name</td>
-                        <td>Teacher James</td>
-                        <td>Lessons name</td>
-                        <td>16</td>
-                        <td>$25.00</td>
-                        <td><a href="#" class="status_btn">Active</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"> <a href="#" class="question_content"> title here 1</a></th>
-                        <td>Category name</td>
-                        <td>Teacher James</td>
-                        <td>Lessons name</td>
-                        <td>16</td>
-                        <td>$25.00</td>
-                        <td><a href="#" class="status_btn">Active</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"> <a href="#" class="question_content"> title here 1</a></th>
-                        <td>Category name</td>
-                        <td>Teacher James</td>
-                        <td>Lessons name</td>
-                        <td>16</td>
-                        <td>$25.00</td>
-                        <td><a href="#" class="status_btn">Active</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"> <a href="#" class="question_content"> title here 1</a></th>
-                        <td>Category name</td>
-                        <td>Teacher James</td>
-                        <td>Lessons name</td>
-                        <td>16</td>
-                        <td>$25.00</td>
-                        <td><a href="#" class="status_btn">Active</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"> <a href="#" class="question_content"> title here 1</a></th>
-                        <td>Category name</td>
-                        <td>Teacher James</td>
-                        <td>Lessons name</td>
-                        <td>16</td>
-                        <td>$25.00</td>
-                        <td><a href="#" class="status_btn">Active</a></td>
-                    </tr>
+
+                    {% endfor %}
+
+                    {% endif %}
+                   
                 </tbody>
             </table>
         </div>

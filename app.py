@@ -16,7 +16,10 @@ createTemplate("./templates/partials", flask=True)
 API_KEY = config('API_KEY')
 app.config['MONGO_URI'] = config('MONGO_URI') 
 mongo = PyMongo(app)
-dbenter = mongo.db.data_collection
+db_admin = mongo.db.admin_login
+db_events = mongo.db.b_events
+db_venues = mongo.db.venues
+db_venue_avail = mongo.db.venue_avail
 
 load = ''
 loaded = 0
@@ -80,10 +83,18 @@ def post_login():
 
     return {"status": status}
 
+# @app.route("/", methods=["GET"])
+# def get_dashboard():
+
+    return render_template("index.html")
+
 @app.route("/dashboard", methods=["GET"])
 def get_dashboard():
 
-    return render_template("index.html")
+    data = db_events.find().sort("event_date", -1)
+    # print(dumps(data))
+
+    return render_template("index.html", result = data)
 
 
 if __name__ == "__main__":

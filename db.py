@@ -80,10 +80,10 @@ def insert_events_students():
 
     data = {
 
-        "event_id"          : 1,
+        "event_id"          : 2,
         "date"              : d1,
-        "event_name"        : "W3H Club coding event",
-        "event_venue"       : "Placement Block - Basil",
+        "event_name"        : "W3H Club Trivia Time",
+        "event_venue"       : "Placement Block - Laurel",
         "co-ordinators"     : "Divya, Hari Prasad, Varsha",
         "form_link"         : "https://forms.gle/9E4ofu5rqPe77cus6",
         "contact_details"   : "9791108129",
@@ -137,6 +137,6 @@ if __name__ == "__main__":
 
     insert_events_students()
     # insert_venue()
-    venue_avail()
+    # venue_avail()
 
     # print(get_venue_id())
