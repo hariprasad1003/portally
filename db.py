@@ -13,7 +13,20 @@ app.config['MONGO_URI'] = config('MONGO_URI')
 mongo = PyMongo(app)
 db_admin = mongo.db.admin_login
 db_events = mongo.db.b_events
+db_venues = mongo.db.venues
+db_venue_avail = mongo.db.venue_avail
 
+def get_venue_id():
+
+    last_venue_id      = db_venues.find().sort([('venue_id', -1)]).limit(1)
+
+    try:
+        last_venue_id = last_venue_id[0]['venue_id']
+    except:
+        
+        last_venue_id = 0
+
+    return last_venue_id + 1
 
 def generate_random():
 
@@ -64,7 +77,7 @@ def insert_events_students():
    
     today = date.today()
     d1 = today.strftime("%d/%m/%Y")
-    
+
     data = {
         "event_id"          : 1,
         "date"              : d1,
@@ -77,7 +90,26 @@ def insert_events_students():
         "year_of_study"     : "III"
     }
 
-    db_events.insert_one(data)
+    db_events.insert_one(data) 
+
+def insert_venue():
+
+    data = {
+        "venue_id"   : 5,
+        "venue_name" : "Auditorium"
+    }
+
+    db_venues.insert_one(data)
+
+    print("Success")
+
+def venue_avail():
+
+    data = {
+        "v_a_id"    : 1,
+        "venue_id"  : 1,
+       
+    }
 
 @app.route("/", methods=["GET","POST"])
 def startpy():
@@ -91,4 +123,7 @@ if __name__ == "__main__":
     # app.run( debug = True,host="0.0.0.0",port = PORT)
     # insert_login_details()
 
-    insert_events_students()
+    # insert_events_students()
+    # insert_venue()
+
+    print(get_venue_id())
