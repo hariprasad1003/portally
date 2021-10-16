@@ -4,3 +4,4 @@ python-decouple
 dnspython
 sawo
 python-dotenv
+requests
