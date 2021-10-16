@@ -9,19 +9,24 @@ from bson import ObjectId
 import json
 from datetime import datetime
 import db
+from flask_googlemaps import GoogleMaps, icons
+from flask_googlemaps import Map
 
 app  = Flask(__name__)
 PORT = 3009
 
 createTemplate("./templates/partials", flask=True)
 
-API_KEY = config('API_KEY')
+SAWO_API_KEY = config('SAWO_API_KEY')
+GOOGLE_API_KEY = config('GOOGLE_API_KEY')
 app.config['MONGO_URI'] = config('MONGO_URI') 
 mongo = PyMongo(app)
 db_admin = mongo.db.admin_login
 db_events = mongo.db.b_events
 db_venues = mongo.db.venues
 db_venue_avail = mongo.db.venue_avail
+
+GoogleMaps(app, key=GOOGLE_API_KEY)
 
 load = ''
 loaded = 0
@@ -307,6 +312,173 @@ def get_venue_details(venue_id):
     return render_template("single_venue_details.html", result=data)
 
 # /venue/
+
+@app.route("/map", methods=["GET"])
+def get_map():
+
+    '''
+    MGR Statue - 12.869569320901709, 80.21578432923627
+
+    Admin Block - 12.869261957286394, 80.21695868772133
+    Library - 12.869752082420984, 80.2148993654051
+    Book Bank - 12.868917935184149, 80.21485294143628
+    EEE Dept 1 - 12.86913506393891, 80.21516822487982
+    EEE Dept 2 - 12.868991251408364, 80.2154516907258
+    Civil Dept - 12.869010990388016, 80.21577275918398
+    CSE Dept - 12.87006279377722, 80.21685744992764
+    CSE Laboratory - 12.87009663188254, 80.21668100690107
+    EEE Laboratory - 12.870260182673032, 80.21646406876486
+    Mechanical Laboratory - 12.870248903312467, 80.2160099449096
+    EIE Dept - 12.870446292045141, 80.2152202900461
+    Exam Block - 12.87078467238549, 80.21634547591113
+    Placement Block - 12.870959502043675, 80.21724215359554
+
+    '''
+
+    # sndmap=Map(
+    #     zoom=18,
+    #     maptype="ROADMAP",
+    #     identifier ="sndmap",
+    #     lat=12.870002002625137,
+    #     lng=80.21836282448177,
+    #     markers=[
+    #         {
+    #             'icon':'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+    #             'lat':12.869892286997779,
+    #             'lng':80.2184995084505,
+    #             'infobox':(
+    #                 "<h2>St.Joseph's College Of Engineering<h2>"
+    #                 "<img src='./static/images/stjoseph.png'>"
+    #                 )
+    #         }
+    #     ],
+    #     language="en",
+    #     region="IN",
+    #     style="height:700px;width:1000px;margin:20;"
+    # )
+    
+    sndmap=Map(
+        zoom=18,
+        maptype="ROADMAP",
+        identifier ="sndmap",
+        lat=12.869569320901709,
+        lng=80.21578432923627,
+        markers=[
+            {
+                'icon':'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                'lat':12.869261957286394,
+                'lng':80.21695868772133,
+                'infobox':(
+                    "<p>Admin Block<p>"
+                    )
+            },
+            {
+                'icon':'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                'lat':12.869752082420984,
+                'lng':80.2148993654051,
+                'infobox':(
+                    "<p>Library<p>"
+                    )
+            },
+            {
+                'icon':'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                'lat':12.868917935184149,
+                'lng':80.21485294143628,
+                'infobox':(
+                    "<p>Book Bank<p>"
+                    )
+            },
+            {
+                'icon':'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                'lat':12.86913506393891,
+                'lng':80.21516822487982,
+                'infobox':(
+                    "<p>EEE Dept 1<p>"
+                    )
+            },
+            {
+                'icon':'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                'lat':12.868991251408364,
+                'lng':80.2154516907258,
+                'infobox':(
+                    "<p>EEE Dept 2 <p>"
+                    )
+            },
+            {
+                'icon':'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                'lat':12.869010990388016,
+                'lng':80.21577275918398,
+                'infobox':(
+                    "<p>Civil Dept<p>"
+                    )
+            },
+            {
+                'icon':'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                'lat':12.87006279377722,
+                'lng':80.21685744992764,
+                'infobox':(
+                    "<p>CSE Dept<p>"
+                    )
+            },
+            {
+                'icon':'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                'lat':12.87009663188254,
+                'lng':80.21668100690107,
+                'infobox':(
+                    "<p>CSE Laboratory<p>"
+                    )
+            },
+            {
+                'icon':'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                'lat':12.870260182673032,
+                'lng':80.21646406876486,
+                'infobox':(
+                    "<p>EEE Laboratory<p>"
+                    )
+            },
+            {
+                'icon':'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                'lat':12.870248903312467,
+                'lng':80.2160099449096,
+                'infobox':(
+                    "<p>Mechanical Laboratory<p>"
+                    )
+            },
+            {
+                'icon':'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                'lat':12.870446292045141,
+                'lng':80.2152202900461,
+                'infobox':(
+                    "<p>EIE Dept<p>"
+                    )
+            },
+            {
+                'icon':'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                'lat':12.87078467238549,
+                'lng':80.21634547591113,
+                'infobox':(
+                    "<p>Exam Block<p>"
+                    )
+            },
+            {
+                'icon':'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                'lat':12.870959502043675,
+                'lng':80.21724215359554,
+                'infobox':(
+                    "<p>Placement Block<p>"
+                    )
+            },
+        ],
+        language="en",
+        region="IN",
+        style="height:700px;width:1000px;margin:20;"
+    )
+
+    return render_template('map.html', 
+        sndmap=sndmap
+        )
+
+
 
 if __name__ == "__main__":
     # print(app.config['MONGO_URI'])
