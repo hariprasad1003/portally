@@ -3,3 +3,4 @@ Flask-PyMongo
 python-decouple
 dnspython
 sawo
+python-dotenv
