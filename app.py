@@ -182,6 +182,12 @@ def get_event_page():
 
     return render_template("add_event.html", result = data)
 
+@app.route("/admin/event", methods=["GET"])
+def get_event_page_admin():
+
+    data = db_venues.find()
+
+    return render_template("admin_event.html", result = data)
 
 def get_venue_avail_id():
 
@@ -194,6 +200,80 @@ def get_venue_avail_id():
         last_venue_avail_id = 0
 
     return last_venue_avail_id + 1
+
+@app.route("/admin/event", methods=["POST"])
+def post_event_page_admin():
+
+    event_id =  get_last_event_id()
+    flag = 0
+    form_date = string_date(request.form['date'])
+    data = {
+
+        "event_id"          : int(event_id),
+        "date"              : form_date,
+        "event_name"        : request.form['event_name'],
+        "event_venue"       : request.form['event_venue'],
+        "co-ordinators"     : request.form['co-ordinators'],
+        "form_link"         : request.form['form_link'],
+        "contact_details"   : request.form['contact_details'],
+        "department"        : request.form['department'],
+        "year_of_study"     : request.form['year_of_study'],
+        "mode"              : request.form['mode'],
+        "starting_time"     : request.form['starting_time'],
+        "ending_time"       : request.form['ending_time'],
+    }
+
+    print(data)
+    
+    v_a_id = get_venue_avail_id()
+
+    venue_id = db_venues.find_one({"venue_name" : request.form['event_venue']})
+
+    print(venue_id["venue_id"])
+
+    venue_data = {
+        "v_a_id"        : v_a_id,
+        "venue_id"      : venue_id["venue_id"],
+        "event_date"    : form_date,
+        "event_id"      : int(event_id),
+        "starting_time" : float(request.form['starting_time']),
+        "ending_time"   : float(request.form['ending_time'])
+    }
+
+
+    for data in db_venue_avail.find({"venue_id":venue_id["venue_id"]}):
+
+        print("form date", form_date)
+        event_data = data["event_date"]
+        print("event date", event_data)
+        # form_date = string_date(request.form['date'])
+
+        if( event_data == form_date):
+
+            print("Inside for loop", data)
+            db_start = float(data["starting_time"])
+            db_end   = float(data["ending_time"])
+
+            form_start = float(request.form['starting_time'])
+            form_end   = float(request.form['ending_time']) 
+
+
+            print(db_start,db_end, form_start, form_end )
+
+            #TODO
+            if((db_start >= form_start or db_end >= form_start) and (db_start >= form_end or db_end <= form_end)  ):
+                message = "Venue is already booked in the given time"
+                print("message", message)
+                flag=1
+       
+    if(flag==0):
+        db_b_events.insert_one(data)
+        db_venue_avail.insert_one(venue_data)
+        message = "Successfully sent for approval"
+
+
+    return render_template("success.html", message = message)
+
 
 @app.route("/event", methods=["POST"])
 def post_event_page():
@@ -254,6 +334,7 @@ def post_event_page():
 
             print(db_start,db_end, form_start, form_end )
 
+            #TODO
             if((db_start >= form_start or db_end >= form_start) and (db_start >= form_end or db_end <= form_end)  ):
                 message = "Venue is already booked in the given time"
                 print("message", message)
@@ -300,7 +381,6 @@ def get_dashboard_admin_approve(event_id):
 
     db_a_events.insert_one(data)
     # db_b_events.delete_one({"event_id":int(event_id)})
-
 
     return redirect(url_for('get_dashboard_admin'))
 
