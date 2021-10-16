@@ -83,10 +83,50 @@ def post_login():
 
     return {"status": status}
 
-# @app.route("/", methods=["GET"])
-# def get_dashboard():
+def get_last_event_id():
 
-    return render_template("index.html")
+    last_venue_id      = db_venues.find().sort([('event_id', -1)]).limit(1)
+
+    try:
+        last_venue_id = last_venue_id[0]['event_id']
+    except:
+        
+        last_venue_id = 0
+
+    return last_venue_id + 1
+
+@app.route("/event", methods=["GET"])
+def get_event_page():
+
+    data = db_venues.find()
+
+    return render_template("add_event.html", result = data)
+
+@app.route("/event", methods=["POST"])
+def post_event_page():
+
+    event_id =  get_last_event_id()   
+    data = {
+
+        "event_id"          : int(event_id),
+        "date"              : request.form['date'],
+        "event_name"        : request.form['event_name'],
+        "event_venue"       : request.form['roll_number'],
+        "co-ordinators"     : request.form['co-ordinators'],
+        "form_link"         : request.form['form_link'],
+        "contact_details"   : request.form['contact_details'],
+        "department"        : request.form['department'],
+        "year_of_study"     : request.form['year_of_study'],
+        "mode"              : request.form['mode'],
+        "starting_time"     : request.form['roll_number'],
+        "ending_time"       : request.form['roll_number'],
+       
+    }
+
+    # request.form['roll_number']
+
+
+    return render_template("faq.html")
 
 @app.route("/dashboard", methods=["GET"])
 def get_dashboard():
