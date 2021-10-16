@@ -157,19 +157,19 @@ def get_admin_details(emp_id):
 
         # print(admin_details)
 
-    return result
+    return result, admin_details["email_id"]
 
 def get_student_details(roll_number):
 
-    admin_details = db_admin.find_one({"roll_number" : int(roll_number)})
+    student_details = db_student.find_one({"roll_number" : int(roll_number)})
 
     result = False
 
-    if(int(roll_number) == int(admin_details["roll_number"])):
+    if(int(roll_number) == int(student_details["roll_number"])):
 
         result = True
 
-    return result
+    return result, student_details["email_id"]
 
 def add_admin_email(emp_id, load):
 

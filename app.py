@@ -76,8 +76,8 @@ def get_login_admin_sawo():
     emp_id = request.args['emp_id']
     # print(emp_id)
 
-    result = db.get_admin_details(emp_id)
-    # print(result)
+    result, email_id = db.get_admin_details(emp_id)
+    print(result, email_id)
 
     setLoaded()
     setPayload(load if loaded < 2 else '')
@@ -93,9 +93,15 @@ def get_login_admin_sawo():
 
         # print(load)
 
-        db.add_admin_email(emp_id, load)  
+        if(email_id is None):
 
-        return redirect(url_for('get_dashboard'))
+            db.add_admin_email(emp_id, load)  
+
+            return redirect(url_for('get_dashboard'))
+
+        else:
+
+            return redirect(url_for('get_dashboard'))
 
     else :
 
@@ -108,8 +114,8 @@ def get_login_student_sawo():
 
     # print(roll_number)
 
-    result = db.get_student_details(roll_number)
-    # print(result)
+    result, email_id = db.get_student_details(roll_number)
+    print(result, email_id)
 
     setLoaded()
     setPayload(load if loaded < 2 else '')
@@ -121,9 +127,15 @@ def get_login_student_sawo():
 
     if(load and result):
 
-        db.add_student_email(roll_number,load)        
+        if(email_id is None):
 
-        return redirect(url_for('get_dashboard'))
+            db.add_student_email(roll_number,load)        
+
+            return redirect(url_for('get_dashboard'))
+
+        else:
+
+            return redirect(url_for('get_dashboard'))
 
     else :
 
