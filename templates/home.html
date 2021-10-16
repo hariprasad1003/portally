@@ -8,7 +8,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Finance</title>
+    <title>Portally</title>
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendors/themefy_icon/themify-icons.css') }}">
@@ -30,6 +30,14 @@
 
 </head>
 
+<style>
+    #logo {
+        width: 700px;
+        height: auto;
+    }
+
+</style>
+
 <body class="crm_body_bg">
     
     <div class="main_content_iner ">
@@ -40,12 +48,32 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-6" id="login_box">
                                 <!-- login  -->
-                                <div class="modal-content cs_modal">
+                                <div class="modal-content">
+
+                                    <img src="../static/img/portally2.jpg" id="logo" style="padding-left: 200px;">
+
                                     <div class="modal-body">
 
-                                        <a href="/login/admin" class="btn btn-outline-primary">Login as Admin</a>
+                                        <div class="container mb-3">
 
-                                        <a href="/login/student" class="btn btn-outline-primary">Login as Student</a>
+                                            <div class="row justify-content-around">
+                                            
+                                                <div class="col-4">
+                                            
+                                                    <a href="/login/admin" class="btn btn-outline-primary">Login as Admin</a>
+
+                                                    
+                                                </div>
+                                            
+                                                  <div class="col-4">
+                                            
+                                                    <a href="/login/student" class="btn btn-outline-primary">Login as Student</a>
+                                            
+                                                </div>
+                                            
+                                            </div>
+                                            
+                                          </div>
 
                                     </div>
                                 </div>

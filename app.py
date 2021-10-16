@@ -89,7 +89,7 @@ def get_login_admin_sawo():
 
     # print(load)
 
-    if(load):
+    if(load and result):
 
         # print(load)
 
