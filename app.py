@@ -121,10 +121,11 @@ def post_event_page():
 
     event_id =  get_last_event_id()
     flag = 0
+    form_date = string_date(request.form['date'])
     data = {
 
         "event_id"          : int(event_id),
-        "date"              : request.form['date'],
+        "date"              : form_date,
         "event_name"        : request.form['event_name'],
         "event_venue"       : request.form['event_venue'],
         "co-ordinators"     : request.form['co-ordinators'],
@@ -154,16 +155,11 @@ def post_event_page():
         "ending_time"   : float(request.form['ending_time'])
     }
 
-    print(venue_data)
-
-    print(request.form['date'])
-    print(venue_id["venue_id"])
-
 
     for data in db_venue_avail.find({"venue_id":venue_id["venue_id"]}):
 
-        event_data = string_date(data["event_date"])
-        form_date = string_date(request.form['date'])
+        event_data = data["event_date"]
+        # form_date = string_date(request.form['date'])
 
         if( event_data == form_date):
 
@@ -207,6 +203,33 @@ def get_dashboard():
 
     return render_template("index.html", result = data)
 
+
+@app.route("/venues", methods=["GET"])
+def get_venues():
+
+    data = db_venues.find()
+    # print(dumps(data))
+
+    return render_template("venues_details.html", result=data)
+
+
+@app.route("/venue/<venue_id>", methods=["GET"])
+def get_venue_details(venue_id):
+
+    data = db_venue_avail.find({"venue_id": int(venue_id)})
+    # print(dumps(data))
+
+
+
+    # for itr in data:
+    #     data_1 = db_events.find_one({"event_id":itr["event_id"]}) 
+    #     itr["event_name"] = data_1["event_name"]
+        # print(itr)
+
+    # print(dumps(data))
+    return render_template("single_venue_details.html", result=data)
+
+# /venue/
 
 if __name__ == "__main__":
     # print(app.config['MONGO_URI'])
