@@ -7,6 +7,7 @@ import os
 from decouple import config
 from bson import ObjectId
 import json
+from datetime import datetime
 
 app  = Flask(__name__)
 PORT = 3009
@@ -85,15 +86,15 @@ def post_login():
 
 def get_last_event_id():
 
-    last_venue_id      = db_venues.find().sort([('event_id', -1)]).limit(1)
+    last_event_id      = db_events.find().sort([('event_id', -1)]).limit(1)
 
     try:
-        last_venue_id = last_venue_id[0]['event_id']
+        last_event_id = last_event_id[0]['event_id']
     except:
         
-        last_venue_id = 0
+        last_event_id = 0
 
-    return last_venue_id + 1
+    return last_event_id + 1
 
 @app.route("/event", methods=["GET"])
 def get_event_page():
@@ -102,31 +103,101 @@ def get_event_page():
 
     return render_template("add_event.html", result = data)
 
+
+def get_venue_avail_id():
+
+    last_venue_avail_id      = db_venue_avail.find().sort([('v_a_id', -1)]).limit(1)
+
+    try:
+        last_venue_avail_id = last_venue_avail_id[0]['v_a_id']
+    except:
+        
+        last_venue_avail_id = 0
+
+    return last_venue_avail_id + 1
+
 @app.route("/event", methods=["POST"])
 def post_event_page():
 
-    event_id =  get_last_event_id()   
+    event_id =  get_last_event_id()
+    flag = 0
     data = {
 
         "event_id"          : int(event_id),
         "date"              : request.form['date'],
         "event_name"        : request.form['event_name'],
-        "event_venue"       : request.form['roll_number'],
+        "event_venue"       : request.form['event_venue'],
         "co-ordinators"     : request.form['co-ordinators'],
         "form_link"         : request.form['form_link'],
         "contact_details"   : request.form['contact_details'],
         "department"        : request.form['department'],
         "year_of_study"     : request.form['year_of_study'],
         "mode"              : request.form['mode'],
-        "starting_time"     : request.form['roll_number'],
-        "ending_time"       : request.form['roll_number'],
-       
+        "starting_time"     : request.form['starting_time'],
+        "ending_time"       : request.form['ending_time'],
     }
 
-    # request.form['roll_number']
+    print(data)
+    
+    v_a_id = get_venue_avail_id()
+
+    venue_id = db_venues.find_one({"venue_name" : request.form['event_venue']})
+
+    print(venue_id["venue_id"])
+
+    venue_data = {
+        "v_a_id"        : v_a_id,
+        "venue_id"      : venue_id["venue_id"],
+        "event_date"    : request.form['date'],
+        "event_id"      : int(event_id),
+        "starting_time" : float(request.form['starting_time']),
+        "ending_time"   : float(request.form['ending_time'])
+    }
+
+    print(venue_data)
+
+    print(request.form['date'])
+    print(venue_id["venue_id"])
 
 
-    return render_template("faq.html")
+    for data in db_venue_avail.find({"venue_id":venue_id["venue_id"]}):
+
+        event_data = string_date(data["event_date"])
+        form_date = string_date(request.form['date'])
+
+        if( event_data == form_date):
+
+            print("Inside for loop", data)
+            db_start = float(data["starting_time"])
+            db_end   = float(data["ending_time"])
+
+            form_start = float(request.form['starting_time'])
+            form_end   = float(request.form['ending_time']) 
+
+
+            print(db_start,db_end, form_start, form_end )
+
+            if(db_start >= form_start and db_end <= form_end ):
+                message = "Venue is already booked in the given time"
+                flag=1
+       
+    if(flag==0):
+        db_events.insert_one(data)
+        db_venue_avail.insert_one(venue_data)
+        message = "Successfully sent for approval"
+
+
+    return render_template("success.html", message = message)
+
+def string_date(str_date):
+
+    dt_string = str_date
+
+
+    dt_object1 = datetime.strptime(dt_string, "%Y-%m-%d")
+    print("dt_object1 =", dt_object1)
+
+    return dt_object1
 
 @app.route("/dashboard", methods=["GET"])
 def get_dashboard():

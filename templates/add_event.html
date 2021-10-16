@@ -234,7 +234,7 @@
 
                             <div class="form-group">
                               <label for="exampleFormControlSelect1">Venue</label>
-                              <select class="form-control" id="exampleFormControlSelect1">
+                              <select class="form-control" name="event_venue" id="exampleFormControlSelect1">
                                 {% for data in result %}
                                     <option>{{data.venue_name}}</option>
                                 {% endfor %}
@@ -244,12 +244,12 @@
 
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">Starting Time</label>
-                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter in 24hrs eg:13:30 ">
+                                <input type="text" name="starting_time" class="form-control" id="exampleFormControlInput1" placeholder="Enter in 24hrs eg:13.30 ">
                             </div> 
 
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">Ending Time</label>
-                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter in 24hrs eg:13:30 ">
+                                <input type="text" name="ending_time" class="form-control" id="exampleFormControlInput1" placeholder="Enter in 24hrs eg:13.30 ">
                             </div>
 
                 
@@ -261,7 +261,7 @@
                                             <h3 class="mb-0" ></h3>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-primary btn-lg">Submit</button>
+                                    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
                                     <!-- <button type="button" class="btn btn-secondary btn-lg">Large button</button> -->
                                 </div>
                             </div>
