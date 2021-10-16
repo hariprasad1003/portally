@@ -123,6 +123,13 @@ def venue_avail():
        
     }
 
+def get_admin_details(emp_id):
+
+    admin_details = db_admin.find_one({"emp_id" : emp_id})
+
+    return admin_details    
+
+
 @app.route("/", methods=["GET","POST"])
 def startpy():
 

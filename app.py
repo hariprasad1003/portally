@@ -7,6 +7,7 @@ import os
 from decouple import config
 from bson import ObjectId
 import json
+import db
 
 app  = Flask(__name__)
 PORT = 3009
@@ -34,27 +35,50 @@ def setLoaded(reset=False):
         loaded = 0
     else:
         loaded += 1
+        
 
 @app.route("/", methods=["GET"])
 def get_home():
 
-    return render_template("login.html")
+    return render_template("home.html")
 
-@app.route("/", methods=["POST"])
-def post_home():
+@app.route("/login/admin", methods=["GET"])
+def get_login_admin():
+
+    return render_template("login_admin.html")
+
+@app.route("/login/student", methods=["GET"])
+def get_login_student():
+
+    return render_template("login_student.html")
+
+@app.route("/login/admin", methods=["POST"])
+def post_login_admin():
+
+    emp_id = request.form['emp_id']
+
+    print(emp_id)
+
+    return redirect(url_for('get_login_admin_sawo', emp_id=emp_id))
+
+@app.route("/login/student", methods=["POST"])
+def post_login_student():
 
     roll_number = request.form['roll_number']
 
     print(roll_number)
 
-    return redirect(url_for('get_login', roll_number=roll_number))
+    return redirect(url_for('get_login_student_sawo', roll_number=roll_number))
 
-@app.route("/login", methods=["GET"])
-def get_login():
+@app.route("/login/admin/sawo", methods=["GET"])
+def get_login_admin_sawo():
 
-    roll_number = request.args['roll_number']
+    emp_id = request.args['emp_id']
 
-    # print(roll_number, API_KEY)
+    # print(emp_id)
+
+    result = db.get_admin_details(emp_id)
+    print(result)
 
     setLoaded()
     setPayload(load if loaded < 2 else '')
@@ -72,8 +96,43 @@ def get_login():
 
         return render_template("sawo_login.html", sawo=sawo, load=load)
 
-@app.route("/login", methods=["POST"])
-def post_login():
+@app.route("/login/student/sawo", methods=["GET"])
+def get_login_student_sawo():
+
+    roll_number = request.args['roll_number']
+
+    # print(roll_number)
+
+    setLoaded()
+    setPayload(load if loaded < 2 else '')
+    sawo = {
+        "auth_key": API_KEY,
+        "to": "login",
+        "identifier": "email"
+    }
+
+    if(load):
+
+        return redirect(url_for('get_dashboard'))
+
+    else :
+
+        return render_template("sawo_login.html", sawo=sawo, load=load)
+
+@app.route("/login/admin/sawo", methods=["POST"])
+def post_login_admin_sawo():
+    payload = json.loads(request.data)["payload"]
+    setLoaded(True)
+    setPayload(payload)
+    status = 200 if(verifyToken(payload)) else 404
+
+    # print(status)
+
+    return {"status": status}
+
+
+@app.route("/login/student/sawo", methods=["POST"])
+def post_login_student_sawo():
     payload = json.loads(request.data)["payload"]
     setLoaded(True)
     setPayload(payload)
@@ -85,8 +144,7 @@ def post_login():
 
 # @app.route("/", methods=["GET"])
 # def get_dashboard():
-
-    return render_template("index.html")
+    # return render_template("index.html")
 
 @app.route("/dashboard", methods=["GET"])
 def get_dashboard():

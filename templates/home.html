@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+<html lang="zxx">
 
+
+<!-- Mirrored from demo.dashboardpack.com/finance-html/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 15 Oct 2021 12:27:07 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Portally</title>
+    <title>Finance</title>
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendors/themefy_icon/themify-icons.css') }}">
@@ -31,19 +30,8 @@
 
 </head>
 
-<style>
-
-    /* #login_box{
-
-        padding-left: 100px;
-
-    } */
-
-
-</style>
-
-<body>
-
+<body class="crm_body_bg">
+    
     <div class="main_content_iner ">
         <div class="container-fluid plr_30 body_white_bg pt_30">
             <div class="row justify-content-center">
@@ -53,23 +41,12 @@
                             <div class="col-lg-6" id="login_box">
                                 <!-- login  -->
                                 <div class="modal-content cs_modal">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Log in</h5>
-                                    </div>
                                     <div class="modal-body">
 
-                                        <div id="login_box">
+                                        <a href="/login/admin" class="btn btn-outline-primary">Login as Admin</a>
 
-                                            {% if load %}
-                        
-                                            {% else %}
-                        
-                                                {% include './partials/_sawo.html' %}
-                                
-                                            {% endif %}
-                                            
-                                        </div>
-                                        
+                                        <a href="/login/student" class="btn btn-outline-primary">Login as Student</a>
+
                                     </div>
                                 </div>
                             </div>
@@ -79,9 +56,59 @@
         </div>
     </div>
 
-               
 
-  
+<!-- main content part end -->
+
+<!-- footer  -->
+<!-- jquery slim -->
+<script src="static/js/jquery-3.4.1.min.js"></script>
+<!-- popper js -->
+<script src="static/js/popper.min.js"></script>
+<!-- bootstarp js -->
+<script src="static/js/bootstrap.min.js"></script>
+<!-- sidebar menu  -->
+<script src="static/js/metisMenu.js"></script>
+<!-- waypoints js -->
+<script src="static/vendors/count_up/jquery.waypoints.min.js"></script>
+<!-- waypoints js -->
+<script src="static/vendors/chartlist/Chart.min.js"></script>
+<!-- counterup js -->
+<script src="static/vendors/count_up/jquery.counterup.min.js"></script>
+<!-- swiper slider js -->
+<script src="static/vendors/swiper_slider/js/swiper.min.js"></script>
+<!-- nice select -->
+<script src="static/vendors/niceselect/js/jquery.nice-select.min.js"></script>
+<!-- owl carousel -->
+<script src="static/vendors/owl_carousel/js/owl.carousel.min.js"></script>
+<!-- gijgo css -->
+<script src="static/vendors/gijgo/gijgo.min.js"></script>
+<!-- responsive table -->
+<script src="static/vendors/datatable/js/jquery.dataTables.min.js"></script>
+<script src="static/vendors/datatable/js/dataTables.responsive.min.js"></script>
+<script src="static/vendors/datatable/js/dataTables.buttons.min.js"></script>
+<script src="static/vendors/datatable/js/buttons.flash.min.js"></script>
+<script src="static/vendors/datatable/js/jszip.min.js"></script>
+<script src="static/vendors/datatable/js/pdfmake.min.js"></script>
+<script src="static/vendors/datatable/js/vfs_fonts.js"></script>
+<script src="static/vendors/datatable/js/buttons.html5.min.js"></script>
+<script src="static/vendors/datatable/js/buttons.print.min.js"></script>
+
+<script src="static/js/chart.min.js"></script>
+<!-- progressbar js -->
+<script src="static/vendors/progressbar/jquery.barfiller.js"></script>
+<!-- tag input -->
+<script src="static/vendors/tagsinput/tagsinput.js"></script>
+<!-- text editor js -->
+<script src="static/vendors/text_editor/summernote-bs4.js"></script>
+
+
+<!-- custom js -->
+<script src="static/js/custom.js"></script>
+
+<!-- active_chart js -->
+<!-- <?php if (basename($_SERVER['PHP_SELF']) == 'index.php') {?> -->
+<script src="static/js/active_chart.js"></script>
+<!-- <?php }?> -->
 
 
 </body>
