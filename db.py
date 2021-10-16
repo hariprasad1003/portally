@@ -12,6 +12,7 @@ app  = Flask(__name__)
 app.config['MONGO_URI'] = config('MONGO_URI') 
 mongo = PyMongo(app)
 db_admin = mongo.db.admin_login
+db_student = mongo.db.student_login
 db_events = mongo.db.b_events
 db_venues = mongo.db.venues
 db_venue_avail = mongo.db.venue_avail
@@ -45,7 +46,7 @@ def check_random():
 
         return rand
 
-def insert_login_details():
+def insert_admin_login_details():
 
     
     rand = check_random()
@@ -54,12 +55,29 @@ def insert_login_details():
         "admin_login_id" : 2,
         "emp_id"         : rand,
         "email_id"       : None,
-        "user_id"        : None
+        "user_name"        : None
 
     }
     db_admin.insert_one(data)
 
     return "Success"
+
+def insert_student_login_details():
+
+    
+    rand = check_random()
+        
+    data = {
+        "student_login_id" : 1,
+        "roll_number"      : rand,
+        "email_id"         : None,
+        "user_name"        : None
+    }
+
+    db_student.insert_one(data)
+
+    return "Success"
+
 
 '''
 Events :
@@ -106,7 +124,7 @@ def insert_venue():
 
     db_venues.insert_one(data)
 
-    print("Success")
+    # print("Success")
 
 def venue_avail():
 
@@ -123,6 +141,58 @@ def venue_avail():
        
     }
 
+def get_admin_details(emp_id):
+
+    # print(emp_id)
+
+    # print(type(emp_id))
+
+    admin_details = db_admin.find_one({"emp_id" : int(emp_id)})
+
+    result = False
+
+    if(int(emp_id) == int(admin_details["emp_id"])):
+
+        result = True
+
+        # print(admin_details)
+
+    return result, admin_details["email_id"], admin_details["user_name"]
+
+def get_student_details(roll_number):
+
+    student_details = db_student.find_one({"roll_number" : int(roll_number)})
+
+    result = False
+
+    if(int(roll_number) == int(student_details["roll_number"])):
+
+        result = True
+
+    return result, student_details["email_id"], student_details["user_name"]
+
+def add_admin_email(emp_id, load, username):
+
+    # print(load["identifier"])
+
+    response = db_admin.update({'emp_id': int(emp_id)},  {'$set': {"email_id": load["identifier"], "user_name" : username}}) 
+
+    # print(response)
+
+    pass
+
+def add_student_email(roll_number, load, username):
+
+    # print(load["identifier"])
+
+    response = db_student.update({'roll_number': int(roll_number)},  {'$set': {"email_id": load["identifier"], "user_name" : username}}) 
+
+    # print(response)
+
+    pass
+
+
+
 @app.route("/", methods=["GET","POST"])
 def startpy():
 
@@ -135,8 +205,11 @@ if __name__ == "__main__":
     # app.run( debug = True,host="0.0.0.0",port = PORT)
     # insert_login_details()
 
-    insert_events_students()
+    # insert_events_students()
     # insert_venue()
     # venue_avail()
 
     # print(get_venue_id())
+
+    insert_student_login_details()
+    
