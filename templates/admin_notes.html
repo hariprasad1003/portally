@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+
+<!-- Mirrored from demo.dashboardpack.com/finance-html/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 15 Oct 2021 12:25:22 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Portally</title>
+    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendors/themefy_icon/themify-icons.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendors/swiper_slider/css/swiper.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendors/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendors/niceselect/css/nice-select.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendors/owl_carousel/css/owl.carousel.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendors/gijgo/gijgo.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendors/font_awesome/css/all.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendors/tagsinput/tagsinput.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendors/datatable/css/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendors/datatable/css/buttons.dataTables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendors/text_editor/summernote-bs4.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendors/morris/morris.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendors/material_icon/material-icons.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/metisMenu.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/colors/default.css') }}">
+
+</head>
+<body class="crm_body_bg">
+    
+
+
+<!-- main content part here -->
+ 
+ <!-- sidebar  -->
+ <!-- sidebar part here -->
+<nav class="sidebar">
+    <div class="logo d-flex justify-content-between">
+        <a href="index.html"><img src="static/img/portally-logo.png" alt=""></a>
+        <div class="sidebar_close_icon d-lg-none">
+            <i class="ti-close"></i>
+        </div>
+    </div>
+    <ul id="sidebar_menu">
+        <li class="mm-active">
+          <a class=""  href="/dashboard"  aria-expanded="false">
+          <!-- <i class="fas fa-th"></i> -->
+          <img src="static/img/menu-icon/1.svg" alt="">
+            <span>Dashboard</span>
+          </a>
+          <ul>
+            
+           
+          </ul>
+
+        </li>
+
+        <li class="">
+          <a   class="" href="/venues" aria-expanded="false">
+            <img src="static/img/menu-icon/2.svg" alt="">
+            <span>Venues</span>
+          </a>
+          
+        </li>
+
+        <li class="">
+          <a   class="" href="/event" aria-expanded="false">
+            <img src="static/img/menu-icon/3.svg" alt="">
+            <span>Add Events</span>
+          </a>
+          
+        </li>
+
+        <li class="">
+          <a  class="" href="/notes/admin" aria-expanded="false">
+            <img src="static/img/menu-icon/4.svg" alt="">
+            <span>Add Notes</span>
+          </a>
+          
+        </li>
+
+        <li class="">
+            <a   class="" href="/map" aria-expanded="false">
+              <img src="static/img/menu-icon/4.svg" alt="">
+              <span> Map </span>
+            </a>
+            
+          </li>
+        
+
+        <li class="">
+          <a   class="" href="#" aria-expanded="false">
+            <img src="static/img/menu-icon/" alt="">
+            
+          </a>
+          
+        </li>
+
+      </ul>
+    
+</nav>
+<!-- sidebar part end -->
+ <!--/ sidebar  -->
+
+
+<section class="main_content dashboard_part">
+        <!-- menu  -->
+
+    <div class="container-fluid no-gutters">
+        <div class="row">
+            <div class="col-lg-12 p-0">
+                <div class="header_iner d-flex justify-content-between align-items-center">
+                    <div class="sidebar_icon d-lg-none">
+                        <i class="ti-menu"></i>
+                    </div>
+                    <div class="serach_field-area">
+                            <div class="search_inner">
+                                <form action="#">
+                                    <div class="search_field">
+                                        <input type="text" placeholder="Search here..." >
+                                    </div>
+                                    <button type="submit"> <img src="static/img/icon/icon_search.svg" alt=""> </button>
+                                </form>
+                            </div>
+                        </div>
+                    <div class="header_right d-flex justify-content-between align-items-center">
+                        <div class="header_notification_warp d-flex align-items-center">
+                            <li>
+                                <a href="#"> <img src="static/img/icon/bell.svg" alt=""> </a>
+                            </li>
+                            <li>
+                                <a href="#"> <img src="static/img/icon/msg.svg" alt=""> </a>
+                            </li>
+                        </div>
+                        <div class="profile_info">
+                        
+                            <div class="profile_info_iner">
+                                <p>Welcome Admin!</p>
+                                <h5>Travor James</h5>
+                                <div class="profile_info_details">
+                                    <a href="#">My Profile <i class="ti-user"></i></a>
+                                    <a href="#">Settings <i class="ti-settings"></i></a>
+                                    <a href="#">Log Out <i class="ti-shift-left"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <div class="main_content_iner ">
+            <div class="container-fluid plr_30 body_white_bg pt_30">
+                <div class="row justify-content-center">
+                    
+                    <div class="col-lg-12">
+                        <div class="white_box mb_30">
+                            <div class="box_header ">
+                                <div class="main-title">
+                                    <h3 class="mb-0" >Event Details</h3>
+                                </div>
+                            </div>
+                            <form method="POST" action="/notes/admin" enctype="multipart/form-data">
+
+                                <div class="form-group">
+                                    <label for="year_of_study">Year Of Study</label>
+                                    <select class="form-control" name="year_of_study" id="year_of_study">
+
+                                        {% for data in result %}
+            
+                                            <option>{{data.year_of_study}}</option>
+            
+                                        {% endfor %}
+                                
+                                    </select>
+
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="dept">Department</label>
+                                    <select class="form-control" name="dept" id="dept">
+
+                                        {% for data in result %}
+            
+                                            <option>{{data.dept}}</option>
+            
+                                        {% endfor %}
+                                
+                                    </select>
+
+                                </div>
+
+                                    
+                                <div class="form-group">
+                                    <label for="semester">Semester</label>
+                                    <select class="form-control" name="semester" id="semester">
+
+                                        {% for data in result %}
+            
+                                            <option>{{data.semester}}</option>
+            
+                                        {% endfor %}
+                                
+                                    </select>
+
+                                </div>
+    
+                                <div class="form-group">
+                                    <label for="subject">Subject</label>
+                                    <select class="form-control" name="subject" id="subject">
+
+                                        {% for data in result %}
+            
+                                            <option>{{data.subject}}</option>
+            
+                                        {% endfor %}
+                                
+                                    </select>
+
+                                </div>
+
+
+                                <div class="form-group">
+                                   
+                                    <label for="exampleFormControlInput1">Upload Notes</label>
+                                    <div class="custom-file" id="exampleFormControlInput1">
+                                        <input type="file" name="notes" class="custom-file-input" id="inputGroupFile01">
+                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                    </div>
+
+
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                
+                    
+                                <div class="col-sm-3 pd-5">
+                                    <div class="white_box mb_30">
+                                        <div class="box_header ">
+                                            <div class="main-title">
+                                                <h3 class="mb-0" ></h3>
+                                            </div>
+                                        </div>
+                                        <!-- <button type="button" class="btn btn-secondary btn-lg">Large button</button> -->
+                                    </div>
+                                </div>
+            </div>
+        </div>
+
+
+
+<!-- footer part -->
+<div class="footer_part">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="footer_iner text-center">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+<!-- main content part end -->
+
+<!-- footer  -->
+<!-- jquery slim -->
+<script src="js/jquery-3.4.1.min.js"></script>
+<!-- popper js -->
+<script src="js/popper.min.js"></script>
+<!-- bootstarp js -->
+<script src="js/bootstrap.min.js"></script>
+<!-- sidebar menu  -->
+<script src="js/metisMenu.js"></script>
+<!-- waypoints js -->
+<script src="vendors/count_up/jquery.waypoints.min.js"></script>
+<!-- waypoints js -->
+<script src="vendors/chartlist/Chart.min.js"></script>
+<!-- counterup js -->
+<script src="vendors/count_up/jquery.counterup.min.js"></script>
+<!-- swiper slider js -->
+<script src="vendors/swiper_slider/js/swiper.min.js"></script>
+<!-- nice select -->
+<script src="vendors/niceselect/js/jquery.nice-select.min.js"></script>
+<!-- owl carousel -->
+<script src="vendors/owl_carousel/js/owl.carousel.min.js"></script>
+<!-- gijgo css -->
+<script src="vendors/gijgo/gijgo.min.js"></script>
+<!-- responsive table -->
+<script src="vendors/datatable/js/jquery.dataTables.min.js"></script>
+<script src="vendors/datatable/js/dataTables.responsive.min.js"></script>
+<script src="vendors/datatable/js/dataTables.buttons.min.js"></script>
+<script src="vendors/datatable/js/buttons.flash.min.js"></script>
+<script src="vendors/datatable/js/jszip.min.js"></script>
+<script src="vendors/datatable/js/pdfmake.min.js"></script>
+<script src="vendors/datatable/js/vfs_fonts.js"></script>
+<script src="vendors/datatable/js/buttons.html5.min.js"></script>
+<script src="vendors/datatable/js/buttons.print.min.js"></script>
+
+<script src="js/chart.min.js"></script>
+<!-- progressbar js -->
+<script src="vendors/progressbar/jquery.barfiller.js"></script>
+<!-- tag input -->
+<script src="vendors/tagsinput/tagsinput.js"></script>
+<!-- text editor js -->
+<script src="vendors/text_editor/summernote-bs4.js"></script>
+
+<script src="vendors/apex_chart/apexcharts.js"></script>
+
+<!-- custom js -->
+<script src="js/custom.js"></script>
+
+<!-- active_chart js -->
+<script src="js/active_chart.js"></script>
+<script src="vendors/apex_chart/radial_active.js"></script>
+<script src="vendors/apex_chart/stackbar.js"></script>
+<script src="vendors/apex_chart/area_chart.js"></script>
+<!-- <script src="vendors/apex_chart/pie.js"></script> -->
+<script src="vendors/apex_chart/bar_active_1.js"></script>
+<script src="vendors/chartjs/chartjs_active.js"></script>
+<!-- <?php }?> -->
+
+</body>
+
+<!-- Mirrored from demo.dashboardpack.com/finance-html/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 15 Oct 2021 12:27:02 GMT -->
+</html>

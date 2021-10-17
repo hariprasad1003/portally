@@ -16,6 +16,7 @@ db_student = mongo.db.student_login
 db_events = mongo.db.b_events
 db_venues = mongo.db.venues
 db_venue_avail = mongo.db.venue_avail
+db_notes = mongo.db.notes
 
 def get_venue_id():
 
@@ -115,6 +116,20 @@ def insert_events_students():
 
     db_events.insert_one(data) 
 
+def insert_notes_details():
+
+    data = {
+
+        "notes_id"      : 1,
+        "notes_name"    : "CS8691",
+        "year_of_study" : "IV",
+        "semester"      : 7,
+        "subject"       : "Theory Of Computation",
+       
+    }
+
+    db_notes.insert_one(data) 
+
 def insert_venue():
 
     data = {
@@ -191,6 +206,37 @@ def add_student_email(roll_number, load, username):
 
     pass
 
+def get_notes():
+
+    data = db_notes.find({})
+
+    # print(data)
+
+    notes_obj = []
+
+    for i in data:
+
+        # print(i)
+
+        notes_obj.append(i)
+
+    return notes_obj
+
+def get_notes_id():
+
+    document = db_notes.find().limit(1).sort('$natural', -1)
+
+    # print(document)
+
+    last_notes_id = 0
+
+    for attr in document:
+
+        last_notes_id = attr["notes_id"]
+
+    notes_id = last_notes_id + 1
+
+    return notes_id
 
 
 @app.route("/", methods=["GET","POST"])
@@ -211,5 +257,8 @@ if __name__ == "__main__":
 
     # print(get_venue_id())
 
-    insert_student_login_details()
-    
+    # insert_student_login_details()
+
+    # insert_notes_details()
+
+    print(get_notes_id())
