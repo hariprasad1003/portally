@@ -39,16 +39,16 @@
  <!-- sidebar part here -->
 <nav class="sidebar">
     <div class="logo d-flex justify-content-between">
-        <a href="index.html"><img src="static/img/portally-logo.png" alt=""></a>
+        <a href="index.html"><img src="{{ url_for('static', filename='/img/portally-logo.png') }}" alt=""></a>
         <div class="sidebar_close_icon d-lg-none">
             <i class="ti-close"></i>
         </div>
     </div>
     <ul id="sidebar_menu">
         <li class="mm-active">
-          <a class=""  href="/dashboard"  aria-expanded="false">
+          <a class=""  href="/dashboard-admin"  aria-expanded="false">
           <!-- <i class="fas fa-th"></i> -->
-          <img src="static/img/menu-icon/1.svg" alt="">
+          <img src="{{ url_for('static', filename='/img/menu-icon/1.svg') }}" alt="">
             <span>Dashboard</span>
           </a>
           <ul>
@@ -60,7 +60,7 @@
 
         <li class="">
           <a   class="" href="/venues" aria-expanded="false">
-            <img src="static/img/menu-icon/2.svg" alt="">
+            <img src="{{ url_for('static', filename='/img/menu-icon/2.svg') }}" alt="">
             <span>Venues</span>
           </a>
           
@@ -68,7 +68,7 @@
 
         <li class="">
           <a   class="" href="/event" aria-expanded="false">
-            <img src="static/img/menu-icon/3.svg" alt="">
+            <img src="{{ url_for('static', filename='/img/menu-icon/3.svg') }}" alt="">
             <span>Add Events</span>
           </a>
           
@@ -76,7 +76,7 @@
 
         <li class="">
           <a  class="" href="/notes/admin" aria-expanded="false">
-            <img src="static/img/menu-icon/4.svg" alt="">
+            <img src="{{ url_for('static', filename='/img/menu-icon/4.svg') }}" alt="">
             <span>Add Notes</span>
           </a>
           
@@ -84,7 +84,7 @@
 
         <li class="">
             <a   class="" href="/map" aria-expanded="false">
-              <img src="static/img/menu-icon/4.svg" alt="">
+              <img src="{{ url_for('static', filename='/img/menu-icon/4.svg') }}" alt="">
               <span> Map </span>
             </a>
             
