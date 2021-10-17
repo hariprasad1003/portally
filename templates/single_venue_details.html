@@ -38,7 +38,7 @@
  <!-- sidebar part here -->
 <nav class="sidebar">
     <div class="logo d-flex justify-content-between">
-        <a href="index.html"><img src="static/img/portally-logo.png" alt=""></a>
+        <a href="index.html"><img src="{{ url_for('static', filename='/img/portally-logo.png') }}" alt=""></a>
         <div class="sidebar_close_icon d-lg-none">
             <i class="ti-close"></i>
         </div>
@@ -47,7 +47,7 @@
         <li class="mm-active">
           <a class=""  href="/dashboard"  aria-expanded="false">
           <!-- <i class="fas fa-th"></i> -->
-          <img src="static/img/menu-icon/1.svg" alt="">
+          <img src="{{ url_for('static', filename='/img/menu-icon/1.svg') }}" alt="">
             <span>Dashboard</span>
           </a>
           <ul>
@@ -59,7 +59,7 @@
 
         <li class="">
           <a   class="" href="/venues" aria-expanded="false">
-            <img src="static/img/menu-icon/2.svg" alt="">
+            <img src="{{ url_for('static', filename='/img/menu-icon/2.svg') }}" alt="">
             <span>Venues</span>
           </a>
           
@@ -67,7 +67,7 @@
 
         <li class="">
           <a   class="" href="/event" aria-expanded="false">
-            <img src="static/img/menu-icon/3.svg" alt="">
+            <img src="{{ url_for('static', filename='/img/menu-icon/3.svg') }}" alt="">
             <span>Add Events</span>
           </a>
           
@@ -75,7 +75,7 @@
 
         <li class="">
           <a   class="" href="/notes" aria-expanded="false">
-            <img src="static/img/menu-icon/4.svg" alt="">
+            <img src="{{ url_for('static', filename='/img/menu-icon/4.svg') }}" alt="">
             <span>Notes</span>
           </a>
           
@@ -83,7 +83,7 @@
 
         <li class="">
             <a   class="" href="/map" aria-expanded="false">
-              <img src="static/img/menu-icon/4.svg" alt="">
+              <img src="{{ url_for('static', filename='/img/menu-icon/4.svg') }}" alt="">
               <span> Map </span>
             </a>
             
@@ -127,10 +127,11 @@
                     <div class="header_right d-flex justify-content-between align-items-center">
                         <div class="header_notification_warp d-flex align-items-center">
                             <li>
-                                <a href="#"> <img src="static/img/icon/bell.svg" alt=""> </a>
+                                <!-- {{ url_for('static', filename='/img/menu-icon/1.svg') }} -->
+                                <a href="#"> <img src="{{ url_for('static', filename='/img/icon/bell.svg') }}" alt=""> </a>
                             </li>
                             <li>
-                                <a href="#"> <img src="static/img/icon/msg.svg" alt=""> </a>
+                                <a href="#"> <img src="{{ url_for('static', filename='static/img/icon/msg.svg') }}" alt=""> </a>
                             </li>
                         </div>
                         <!-- <div class="profile_info">

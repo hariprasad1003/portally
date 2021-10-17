@@ -2,14 +2,16 @@
 <html lang="zxx">
 
 
-<!-- Mirrored from demo.dashboardpack.com/finance-html/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 15 Oct 2021 12:25:22 GMT -->
+<!-- Mirrored from demo.dashboardpack.com/finance-html/faq.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 15 Oct 2021 12:27:08 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Portally</title>
-    
+
+    <!-- <link rel="icon" href="img/favicon.png" type="image/png"> -->
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendors/themefy_icon/themify-icons.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendors/swiper_slider/css/swiper.min.css') }}">
@@ -27,8 +29,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/metisMenu.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/colors/default.css') }}">
-
-</head>
+    </head>
 <body class="crm_body_bg">
     
 
@@ -37,16 +38,20 @@
  
  <!-- sidebar  -->
  <!-- sidebar part here -->
+
+<!-- sidebar part end -->
+
 <nav class="sidebar">
     <div class="logo d-flex justify-content-between">
-        <a href="index.html"><img src="static/img/portally-logo.png" alt=""></a>
+        <!-- {{ url_for('static', filename='/img/portally-logo.png') }} -->
+        <a href="index.html"><img src="{{ url_for('static', filename='/img/portally-logo.png') }}" alt=""></a>
         <div class="sidebar_close_icon d-lg-none">
             <i class="ti-close"></i>
         </div>
     </div>
     <ul id="sidebar_menu">
         <li class="mm-active">
-          <a class=""  href="/dashboard"  aria-expanded="false">
+          <a class=""  href="/dashboard-admin"  aria-expanded="false">
           <!-- <i class="fas fa-th"></i> -->
           <img src="static/img/menu-icon/1.svg" alt="">
             <span>Dashboard</span>
@@ -67,7 +72,7 @@
         </li>
 
         <li class="">
-          <a   class="" href="/admin/event" aria-expanded="false">
+          <a   class="" href="/event" aria-expanded="false">
             <img src="static/img/menu-icon/3.svg" alt="">
             <span>Add Events</span>
           </a>
@@ -75,9 +80,9 @@
         </li>
 
         <li class="">
-          <a   class="" href="/notes/admin" aria-expanded="false">
+          <a   class="" href="/notes" aria-expanded="false">
             <img src="static/img/menu-icon/4.svg" alt="">
-            <span>Add Notes</span>
+            <span>Notes</span>
           </a>
           
         </li>
@@ -102,7 +107,6 @@
       </ul>
     
 </nav>
-<!-- sidebar part end -->
  <!--/ sidebar  -->
 
 
@@ -121,21 +125,21 @@
                                     <div class="search_field">
                                         <input type="text" placeholder="Search here..." >
                                     </div>
-                                    <button type="submit"> <img src="static/img/icon/icon_search.svg" alt=""> </button>
+                                    <button type="submit"> <img src="img/icon/icon_search.svg" alt=""> </button>
                                 </form>
                             </div>
                         </div>
                     <div class="header_right d-flex justify-content-between align-items-center">
                         <div class="header_notification_warp d-flex align-items-center">
                             <li>
-                                <a href="#"> <img src="{{ url_for('static', filename='/img/icon/bell.svg') }}" alt=""> </a>
+                                <a href="#"> <img src="img/icon/bell.svg" alt=""> </a>
                             </li>
                             <li>
-                                <a href="#"> <img src="{{ url_for('static', filename='static/img/icon/msg.svg') }}" alt=""> </a>
+                                <a href="#"> <img src="img/icon/msg.svg" alt=""> </a>
                             </li>
                         </div>
                         <div class="profile_info">
-                        
+                            <img src="" alt="#">
                             <div class="profile_info_iner">
                                 <p>Welcome Admin!</p>
                                 <h5>Travor James</h5>
@@ -153,90 +157,41 @@
     </div>
     <!--/ menu  -->
     <div class="main_content_iner ">
-        <!-- <h4>Table</h4> -->
-       
-        <div class="QA_table ">
-            <!-- table-responsive -->
-            <table class="table lms_table_active">
-                <thead>
-                    <tr>
-                        <th scope="col">Event Name</th>
-                        <th scope="col">Department</th>
-                        <th scope="col">Year</th>
-                        <th scope="col"> Venue</th>
-                        <th scope="col"> Contact Details</th>
-                        <th scope="col"> Date & Time</th>
-                        <th scope="col"> Registeration Link</th>
+        <div class="container-fluid plr_30 body_white_bg pt_30">
+            <div class="row justify-content-center">
+                
+                <div class="col-lg-12">
+                    <div class="white_box mb_30">
+                        <div class="box_header ">
+                            <div class="main-title">
+                                <h3 class="mb-0"> Message </h3>
+                            </div>
+                        </div>
+                        <!-- accordian -->
                         
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if result %}
+                                
+                            <div class="card">
+                                <div class="card-header" id="headingThree3">
+                                    <h2 class="mb-0">
+                                        <a href="#" class="btn collapsed" type="button"
+                                            data-toggle="collapse" data-target="#collapseThree3"
+                                            aria-expanded="false" aria-controls="collapseThree">
+                                            {{ message }}
+                                        </a>
+                                    </h2>
+                                </div>
+                                
+                            </div>
+                     
+                        </div>
+                        <!-- accordian -->
+                    </div>
+                </div>
+                
 
-                    {% for data in result %}
 
-                    <tr>
-                        <th scope="row"> <a href="#" class="question_content"> {{data.event_name}}</a></th>
-                        <td>{{data.department}}</td>
-                        <td>{{data.year_of_study}}</td>
-                        <td>{{data.event_venue}}</td>
-                        <td>{{data.contact_details}}</td>
-                        <td>{{data.date}}, {{data.starting_time}} - {{data.ending_time}} IST</td>
-                        <td><a href="{{data.form_link}}" target="_blank" class="status_btn">Register here</a></td>
-                    </tr>
-
-                    {% endfor %}
-
-                    {% endif %}
-                   
-                </tbody>
-            </table>
         </div>
     </div>
-
-    <div class="main_content_iner ">
-        <!-- <h4>Table</h4> -->
-       
-        <div class="QA_table ">
-            <!-- table-responsive -->
-            <table class="table lms_table_active">
-                <thead>
-                    <tr>
-                        <th scope="col">Event Name</th>
-                        <th scope="col">Department</th>
-                        <th scope="col">Year</th>
-                        <th scope="col"> Venue</th>
-                        <th scope="col"> Contact Details</th>
-                        <th scope="col"> Date & Time</th>
-                        <th scope="col"> Registeration Link</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if result_1 %}
-
-                    {% for data in result_1 %}
-
-                    <tr>
-                        <th scope="row"> <a href="#" class="question_content"> {{data.event_name}}</a></th>
-                        <td>{{data.department}}</td>
-                        <td>{{data.year_of_study}}</td>
-                        <td>{{data.event_venue}}</td>
-                        <td>{{data.contact_details}}</td>
-                        <td>{{data.date}}, {{data.starting_time}} - {{data.ending_time}} IST</td>
-                        <td><a href="/approve/{{data.event_id}}" class="status_btn">Approve</a></td>
-                    </tr>
-                   
-
-                    {% endfor %}
-
-                    {% endif %}
-                   
-                </tbody>
-            </table>
-        </div>
-    </div>
-
 
 <!-- footer part -->
 <div class="footer_part">
@@ -295,22 +250,16 @@
 <!-- text editor js -->
 <script src="vendors/text_editor/summernote-bs4.js"></script>
 
-<script src="vendors/apex_chart/apexcharts.js"></script>
 
 <!-- custom js -->
 <script src="js/custom.js"></script>
 
 <!-- active_chart js -->
+<!-- <?php if (basename($_SERVER['PHP_SELF']) == 'index.php') {?> -->
 <script src="js/active_chart.js"></script>
-<script src="vendors/apex_chart/radial_active.js"></script>
-<script src="vendors/apex_chart/stackbar.js"></script>
-<script src="vendors/apex_chart/area_chart.js"></script>
-<!-- <script src="vendors/apex_chart/pie.js"></script> -->
-<script src="vendors/apex_chart/bar_active_1.js"></script>
-<script src="vendors/chartjs/chartjs_active.js"></script>
 <!-- <?php }?> -->
 
 </body>
 
-<!-- Mirrored from demo.dashboardpack.com/finance-html/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 15 Oct 2021 12:27:02 GMT -->
+<!-- Mirrored from demo.dashboardpack.com/finance-html/faq.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 15 Oct 2021 12:27:08 GMT -->
 </html>

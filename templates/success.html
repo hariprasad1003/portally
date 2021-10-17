@@ -10,6 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Portally</title>
 
+
+    <!-- <link rel="icon" href="img/favicon.png" type="image/png"> -->
+
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendors/themefy_icon/themify-icons.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendors/swiper_slider/css/swiper.min.css') }}">
@@ -28,7 +31,9 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/colors/default.css') }}">
 
+
 </head>
+
 <body class="crm_body_bg">
     
 
@@ -42,7 +47,8 @@
 
 <nav class="sidebar">
     <div class="logo d-flex justify-content-between">
-        <a href="index.html"><img src="static/img/portally-logo.png" alt=""></a>
+        <!-- {{ url_for('static', filename='/img/portally-logo.png') }} -->
+        <a href="index.html"><img src="{{ url_for('static', filename='/img/portally-logo.png') }}" alt=""></a>
         <div class="sidebar_close_icon d-lg-none">
             <i class="ti-close"></i>
         </div>
