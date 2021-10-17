@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, send_file
 from flask.app import setupmethod
 from sawo import createTemplate, getContext, verifyToken
 import pymongo
@@ -202,6 +202,7 @@ def get_venue_avail_id():
 
 @app.route("/event", methods=["POST"])
 def post_event_page():
+
 
     event_id =  get_last_event_id()
     flag = 0
@@ -520,14 +521,65 @@ def get_map():
 @app.route("/notes", methods=["GET"])
 def get_notes():
 
-        result = db.get_notes()
+    result = db.get_notes()
 
-        # print(result)
+    # print(result)
 
-        return render_template('notes.html', result=result)
+    return render_template('notes.html', result=result)
 
 @app.route("/notes", methods=["POST"])
 def post_notes():
+
+    year_of_study   = request.form['year_of_study']
+    semester        = request.form['semester']
+    subject         = request.form['subject']
+    dept            = request.form['dept']
+
+    data = {
+
+        'year_of_study' : year_of_study,
+        'semester'      : int(semester),
+        'subject'       : subject,
+        'dept'          : dept
+
+    }
+
+    print(data)
+
+    result = db_notes.find(data)
+
+    # print(result)
+
+    notes_obj = []
+
+    for notes in result:
+
+        # print(notes)
+
+        notes_obj.append(notes)
+
+    print(notes_obj)
+
+    # return "hello"
+
+    return render_template('notes.html', result=notes_obj)
+
+@app.route("/notes/download/<notes_name>", methods=["GET"])
+def get_download_notes(notes_name):
+
+    filename = notes_name + '.pdf'
+
+    path = app.config['UPLOAD_FOLDER'] + '/' + 'notes' + '/' + filename
+
+    return send_file(path, as_attachment=True, attachment_filename=filename)
+
+@app.route("/notes/admin", methods=["GET"])
+def get_admin_notes():
+
+    return render_template('admin_notes.html')
+
+@app.route("/notes/admin", methods=["POST"])
+def post_admin_notes():
 
     if request.method == 'POST':
 
