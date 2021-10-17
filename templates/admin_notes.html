@@ -166,27 +166,65 @@
                                 </div>
                             </div>
                             <form method="POST" action="/notes/admin" enctype="multipart/form-data">
-    
-                                <div class="form-group">
-                                    <label for="exampleFormControlInput1">Subject Name</label>
-                                    <input type="text" name="subject_name" class="form-control" id="exampleFormControlInput1" placeholder="">
-                                </div>
 
                                 <div class="form-group">
-                                    <label for="exampleFormControlInput1">Subject Code</label>
-                                    <input type="text" name="subject_code" class="form-control" id="exampleFormControlInput1" placeholder="">
-                                </div>
+                                    <label for="year_of_study">Year Of Study</label>
+                                    <select class="form-control" name="year_of_study" id="year_of_study">
+
+                                        {% for data in result %}
+            
+                                            <option>{{data.year_of_study}}</option>
+            
+                                        {% endfor %}
                                 
+                                    </select>
+
+
+                                </div>
 
                                 <div class="form-group">
-                                    <label for="exampleFormControlInput1">Year Of Study</label>
-                                    <input type="text" name="year_of_study" class="form-control" id="exampleFormControlInput1" placeholder="IV, III">
+                                    <label for="dept">Department</label>
+                                    <select class="form-control" name="dept" id="dept">
+
+                                        {% for data in result %}
+            
+                                            <option>{{data.dept}}</option>
+            
+                                        {% endfor %}
+                                
+                                    </select>
+
+                                </div>
+
+                                    
+                                <div class="form-group">
+                                    <label for="semester">Semester</label>
+                                    <select class="form-control" name="semester" id="semester">
+
+                                        {% for data in result %}
+            
+                                            <option>{{data.semester}}</option>
+            
+                                        {% endfor %}
+                                
+                                    </select>
+
                                 </div>
     
                                 <div class="form-group">
-                                    <label for="exampleFormControlInput1">Semester</label>
-                                    <input type="text" name="semester" class="form-control" id="exampleFormControlInput1" placeholder="4">
+                                    <label for="subject">Subject</label>
+                                    <select class="form-control" name="subject" id="subject">
+
+                                        {% for data in result %}
+            
+                                            <option>{{data.subject}}</option>
+            
+                                        {% endfor %}
+                                
+                                    </select>
+
                                 </div>
+
 
                                 <div class="form-group">
                                    

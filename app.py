@@ -576,7 +576,9 @@ def get_download_notes(notes_name):
 @app.route("/notes/admin", methods=["GET"])
 def get_admin_notes():
 
-    return render_template('admin_notes.html')
+    result = db.get_notes()
+
+    return render_template('admin_notes.html', result = result)
 
 @app.route("/notes/admin", methods=["POST"])
 def post_admin_notes():
@@ -584,9 +586,15 @@ def post_admin_notes():
     if request.method == 'POST':
 
         year_of_study   = request.form['year_of_study']
+        dept            = request.form['dept']
         semester        = request.form['semester']
-        subject_name    = request.form['subject_name']
-        subject_code    = request.form['subject_code']
+        subject         = request.form['subject']
+
+        result = db_notes.find({'subject': subject})
+
+        for notes_details in result:
+
+            subject_code = notes_details['notes_name']
 
         notes = request.files['notes']
 
@@ -602,21 +610,7 @@ def post_admin_notes():
 
         notes.save(path)
 
-        # print(year_of_study, semester, subject_name, subject_code)
-
-        notes_id = db.get_notes_id()
-
-        data = {
-
-            'notes_id'      : notes_id,
-            'notes_name'    : subject_code,
-            'year_of_study' : year_of_study,
-            'semester'      : int(semester),
-            'subject'       : subject_name,
-
-        }
-
-        db_notes.insert_one(data) 
+        # # print(year_of_study, semester, subject_name, subject_code)
 
         message = 'Notes Uploaded Successfully'
 
