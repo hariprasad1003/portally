@@ -392,10 +392,10 @@ def get_dashboard_admin_approve(event_id):
     data = db_b_events.find_one({"event_id":int(event_id)})
 
     print (data)
-    event_id = int(get_last_a_event_id())
+    event_a_id = int(get_last_a_event_id())
 
     data_1 = {
-        "event_id" : event_id,
+        "event_id"          : event_a_id,
         "date"              : data['date'],
         "event_name"        : data['event_name'],
         "event_venue"       : data['event_venue'],
@@ -411,8 +411,18 @@ def get_dashboard_admin_approve(event_id):
 
     db_a_events.insert_one(data_1)
 
-    db_b_events.delete_one({"event_id":int(event_id)})
+    myquery = { "event_id": event_id }
+    newvalues = { "$set": { "event_id": event_a_id } }
 
+    db_venue_avail.update_one(myquery, newvalues)
+
+
+    try:
+
+        x = db_b_events.delete_one({"event_id":int(event_id)})
+        print(x)
+    except:
+        print("error")
     return redirect(url_for('get_dashboard_admin'))
 
 @app.route("/dashboard", methods=["GET"])
