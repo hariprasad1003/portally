@@ -13,6 +13,8 @@ import db
 from flask_googlemaps import GoogleMaps, icons
 from flask_googlemaps import Map
 from werkzeug.utils import secure_filename
+import dropbox
+
 
 app  = Flask(__name__)
 PORT = 3009
@@ -21,9 +23,12 @@ app.config["UPLOAD_FOLDER"] = "static"
 
 createTemplate("./templates/partials", flask=True)
 
-SAWO_API_KEY = config('SAWO_API_KEY')
-GOOGLE_API_KEY = config('GOOGLE_API_KEY')
+SAWO_API_KEY            = config('SAWO_API_KEY')
+GOOGLE_API_KEY          = config('GOOGLE_API_KEY')
 app.config['MONGO_URI'] = config('MONGO_URI') 
+dropbox_access_token    = config('dropbox_access_token')
+dropbox_path            = config('dropbox_path')
+
 mongo = PyMongo(app)
 db_admin = mongo.db.admin_login
 db_b_events = mongo.db.b_events
@@ -31,6 +36,7 @@ db_a_events = mongo.db.a_events
 db_venues = mongo.db.venues
 db_venue_avail = mongo.db.venue_avail
 db_notes = mongo.db.notes
+client = dropbox.Dropbox(dropbox_access_token)
 
 GoogleMaps(app, key=GOOGLE_API_KEY)
 
@@ -726,11 +732,17 @@ def post_admin_notes():
 
         extension = notes_filename.split('.')[1]
 
-        path = app.config['UPLOAD_FOLDER'] + '/' + 'notes' + '/' + subject_code + '.' + extension
+        path =  subject_code + '.' + extension
 
         # print(path)
 
         notes.save(path)
+        
+        file_to = dropbox_path + path
+        
+        with open(path, 'rb') as f:
+            client.files_upload(f.read(), file_to)
+            print("uploaded")
 
         # # print(year_of_study, semester, subject_name, subject_code)
 
