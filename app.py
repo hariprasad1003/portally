@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask.app import setupmethod
 from sawo import createTemplate, getContext, verifyToken
 import pymongo
 from bson.json_util import dumps
@@ -11,9 +12,12 @@ from datetime import datetime
 import db
 from flask_googlemaps import GoogleMaps, icons
 from flask_googlemaps import Map
+from werkzeug.utils import secure_filename
 
 app  = Flask(__name__)
 PORT = 3009
+
+app.config["UPLOAD_FOLDER"] = "static"
 
 createTemplate("./templates/partials", flask=True)
 
@@ -26,6 +30,7 @@ db_b_events = mongo.db.b_events
 db_a_events = mongo.db.a_events
 db_venues = mongo.db.venues
 db_venue_avail = mongo.db.venue_avail
+db_notes = mongo.db.notes
 
 GoogleMaps(app, key=GOOGLE_API_KEY)
 
@@ -512,7 +517,58 @@ def get_map():
         sndmap=sndmap
         )
 
+@app.route("/notes", methods=["GET"])
+def get_notes():
 
+        result = db.get_notes()
+
+        # print(result)
+
+        return render_template('notes.html', result=result)
+
+@app.route("/notes", methods=["POST"])
+def post_notes():
+
+    if request.method == 'POST':
+
+        year_of_study   = request.form['year_of_study']
+        semester        = request.form['semester']
+        subject_name    = request.form['subject_name']
+        subject_code    = request.form['subject_code']
+
+        notes = request.files['notes']
+
+        notes_filename = secure_filename(notes.filename)
+
+        # print(notes_filename)
+
+        extension = notes_filename.split('.')[1]
+
+        path = app.config['UPLOAD_FOLDER'] + '/' + 'notes' + '/' + subject_code + '.' + extension
+
+        # print(path)
+
+        notes.save(path)
+
+        # print(year_of_study, semester, subject_name, subject_code)
+
+        notes_id = db.get_notes_id()
+
+        data = {
+
+            'notes_id'      : notes_id,
+            'notes_name'    : subject_code,
+            'year_of_study' : year_of_study,
+            'semester'      : int(semester),
+            'subject'       : subject_name,
+
+        }
+
+        db_notes.insert_one(data) 
+
+        message = 'Notes Uploaded Successfully'
+
+        return render_template("success.html", message = message)
 
 if __name__ == "__main__":
     # print(app.config['MONGO_URI'])
