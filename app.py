@@ -456,7 +456,7 @@ def get_venue_details(venue_id):
 
         value = itr 
 
-        data_1 = db_b_events.find_one({"event_id": itr["event_id"]}) 
+        data_1 = db_a_events.find_one({"event_id": itr["event_id"]}) 
 
         value["event_name"] = data_1["event_name"]
 
