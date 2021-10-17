@@ -739,12 +739,17 @@ def post_admin_notes():
         notes.save(path)
         
         file_to = dropbox_path + path
-        
+
         with open(path, 'rb') as f:
             client.files_upload(f.read(), file_to)
             print("uploaded")
 
         # # print(year_of_study, semester, subject_name, subject_code)
+        # myquery = { "event_id": event_id }
+        # newvalues = { "$set": { "event_id": event_a_id } }
+
+        # db_venue_avail.update_one(myquery, newvalues)
+        # db_notes.update()
 
         message = 'Notes Uploaded Successfully'
 
